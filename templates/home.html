@@ -1,15 +1,48 @@
-{% extends "base.html" %}
-{% block content %}
-    <p>Questo è un servizio di API rest</p>
-    <form action="http://127.0.0.1:5000/sub" method="POST">
-        <input type="text" name="sub" id="sub" required>
-        <input type="submit" value="submit">
-    </form>
-    <div class="text"></div>
-        <script>
+{% extends "base.html" %} {% block content %}
+<p>Questo è un servizio di API rest</p>
+<h2>PUSH</h2>
+<form action="http://127.0.0.1:5000/sub" method="POST">
+  <input type="text" name="sub" id="sub" required />
+  <input type="submit" value="submit" />
+</form>
+<h2>PUT</h2>
+<form action="#" id="spform">
+  <input type="text" name="sub" id="subPUT" required />
+  <input type="number" name="index" id="index" required />
+  <input id="spsubmit" type="submit" value="submit" />
+</form>
+<div class="text"></div>
+<script>
+  /*
             textEl = document.querySelector(".text");
             fetch("http://127.0.0.1:5000/sub/0")
             .then(res=>res.json())
             .then(data=>textEl.innerText=data)
-        </script>
+            */
+  subEl = document.querySelector("#spsubmit");
+  subEl.addEventListener("click", (event) => {
+    console.log("bellalì");
+    index = document.querySelector("#index").value;
+    sub = document.querySelector("#subPUT").value;
+
+    fetch("http://127.0.0.1:5000/sub", {
+      method: "PUT",
+      body: JSON.stringify({ index: index, sub: sub }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(res=>res.json())
+    .then(data=>console.log(data))
+    event.preventDefault();
+  });
+
+  /*
+            formEl = document.querySelector("#spform")
+            formEl.addEventListener("submit",
+            (event)=>{
+                console.log("bellalì")
+                console.log(data)
+                event.preventDefault();
+            })*/
+</script>
 {% endblock %}
