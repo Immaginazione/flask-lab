@@ -1,19 +1,27 @@
 from flask import Flask
-from flask import url_for
+from flask import request
 from flask import render_template
-from markupsafe import escape
-
+from flask import jsonify
+#import json
 
 app = Flask(__name__)
+obj = {'subs':['orsociro@gmail.com','mattia.folcarelli@gmail.com','ernesto@gmail.com']}
 
 @app.route("/")
 def home():
-    studenti = [{"href":"#","name":"Egle"},
-                {"href":"#","name":"Dario"}]
-    return render_template("home.html", students=studenti,
-                            nome_materia="python")
-    # return f"Benvenuto<a href='{url_for('about_me')}'>back</a>"
+    return render_template("home.html")
 
-@app.route("/about_me")
-def about_me():
-    return f"<p>Ciao sono Mattia e mi piace Flask</p><a href='{url_for('home')}'>back</a>"
+@app.route("/sub", methods=['GET'])
+def index_subs():
+    # return json.dumps();
+    return jsonify(obj)
+
+@app.route("/sub/<id>", methods=['GET'])
+def show_subs(id):
+    return jsonify(obj['subs'][int(id)])
+
+@app.route("/sub", methods=['POST'])
+def create_subs():
+    newSub = request.form['sub']
+    obj['subs'].append(newSub)
+    return jsonify({'data':newSub})
