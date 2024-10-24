@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block content %}
 <p>Questo è un servizio di API rest</p>
-<h2>PUSH</h2>
+<h2>POST</h2>
 <form action="http://127.0.0.1:5000/sub" method="POST">
   <p>
     <label for="sub">Mail</label>
-    <input type="text" name="sub" id="sub" required />
+    <input type="email" name="sub" id="sub" required />
   </p>
   <input type="submit" value="submit" />
 </form>
@@ -12,7 +12,7 @@
 <form action="#" id="spform">
   <p>
     <label for="sub">Mail</label>
-    <input type="text" name="sub" id="subPUT" required />
+    <input type="email" name="sub" id="subPUT" required />
   </p>
   <p>
     <label for="index">Id</label>
@@ -20,8 +20,36 @@
   </p>
   <input id="spsubmit" type="submit" value="submit" />
 </form>
-<div class="text"></div>
+<button id="delete">DELETE</button>
+<ul class="subs"></ul>
+
 <script>
+  update()
+  subsElement = document.querySelector(".subs");
+  function update(){
+    fetch("http://127.0.0.1:5000/sub")
+    .then(res=>res.json())
+    .then(data=>{
+      subsElement.innerHTML = ""
+      for(dato of data){
+        subEl = document.createElement("li")
+        subEl.innerText = dato
+        subsElement.appendChild(subEl)
+      }
+    })
+  }
+  
+  delElement = document.querySelector("#delete");
+  delElement.addEventListener("click", (event) => {
+    fetch("http://127.0.0.1:5000/sub/0", {
+      method: "DELETE"
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        update()});
+  });
+
   /*
     textEl = document.querySelector(".text");
     fetch("http://127.0.0.1:5000/sub/0")
@@ -44,7 +72,10 @@
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data)
+        update()
+    });
   });
 
   /*

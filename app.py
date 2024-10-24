@@ -33,11 +33,10 @@ def show_subs(id):
 def create_subs():
     newSub = request.form["sub"]
     # obj["subs"].append(newSub)
-    createData(newSub + "\n","a")
+    createData("\n" + newSub , "a")
     return jsonify({"data": newSub})
 
 
-# non funge, non cancella elemento
 @app.route("/sub", methods=["PUT"])
 def update_subs():
     newSub = request.json["sub"]
