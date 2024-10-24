@@ -2,26 +2,37 @@
 <p>Questo è un servizio di API rest</p>
 <h2>PUSH</h2>
 <form action="http://127.0.0.1:5000/sub" method="POST">
-  <input type="text" name="sub" id="sub" required />
+  <p>
+    <label for="sub">Mail</label>
+    <input type="text" name="sub" id="sub" required />
+  </p>
   <input type="submit" value="submit" />
 </form>
 <h2>PUT</h2>
 <form action="#" id="spform">
-  <input type="text" name="sub" id="subPUT" required />
-  <input type="number" name="index" id="index" required />
+  <p>
+    <label for="sub">Mail</label>
+    <input type="text" name="sub" id="subPUT" required />
+  </p>
+  <p>
+    <label for="index">Id</label>
+    <input type="number" name="index" id="index" required />
+  </p>
   <input id="spsubmit" type="submit" value="submit" />
 </form>
 <div class="text"></div>
 <script>
   /*
-            textEl = document.querySelector(".text");
-            fetch("http://127.0.0.1:5000/sub/0")
-            .then(res=>res.json())
-            .then(data=>textEl.innerText=data)
-            */
-  subEl = document.querySelector("#spsubmit");
-  subEl.addEventListener("click", (event) => {
-    console.log("bellalì");
+    textEl = document.querySelector(".text");
+    fetch("http://127.0.0.1:5000/sub/0")
+      .then(res=>res.json())
+      .then(data=>textEl.innerText=data)
+  */
+
+  formElement = document.querySelector("#spform");
+  formElement.addEventListener("submit", (event) => {
+    event.preventDefault();
+
     index = document.querySelector("#index").value;
     sub = document.querySelector("#subPUT").value;
 
@@ -31,18 +42,19 @@
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(res=>res.json())
-    .then(data=>console.log(data))
-    event.preventDefault();
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   });
 
   /*
-            formEl = document.querySelector("#spform")
-            formEl.addEventListener("submit",
-            (event)=>{
-                console.log("bellalì")
-                console.log(data)
-                event.preventDefault();
-            })*/
+    formEl = document.querySelector("#spform")
+    formEl.addEventListener("submit",
+      (event)=>{
+          console.log("bellalì")
+          console.log(data)
+          event.preventDefault();
+    })
+  */
 </script>
 {% endblock %}

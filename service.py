@@ -16,10 +16,12 @@ def createData(data):
     except FileNotFoundError as error:
         print("file non trovato")
 
+# non funge, non cancella elemento
 def updateData(index, data):
     fileList = readData()
     fileList.insert(int(index), data)
     dataString = "\n".join(fileList)
     createData(dataString)
 
-
+def deleteData(index):
+    return

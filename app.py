@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import jsonify
-from service import readData, showData,createData,updateData
+from service import readData, showData,createData,updateData,deleteItem
 
 # import json
 
@@ -37,9 +37,17 @@ def create_subs():
     return jsonify({"data": newSub})
 
 
+# non funge, non cancella elemento
 @app.route("/sub", methods=["PUT"])
 def update_subs():
     newSub = request.json["sub"]
     id = request.json["index"]
     updateData(id, newSub)
     return jsonify({"data": newSub})
+
+
+@app.route("/sub/<int:id>", methods=["DELETE"])
+def show_subs(id):
+    element = deleteItem(id)
+    return jsonify({"data": element})
+
