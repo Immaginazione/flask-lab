@@ -33,7 +33,7 @@ def show_subs(id):
 def create_subs():
     newSub = request.form["sub"]
     # obj["subs"].append(newSub)
-    createData(newSub + "\n")
+    createData(newSub + "\n","a")
     return jsonify({"data": newSub})
 
 

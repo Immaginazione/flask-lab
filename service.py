@@ -9,9 +9,9 @@ def readData():
 def showData(index):
     return readData()[index]
 
-def createData(data):
+def createData(data,writeMode):
     try:
-        with open("data.txt", "w", encoding="utf-8") as file:
+        with open("data.txt", writeMode, encoding="utf-8") as file:
             file.write(data)
     except FileNotFoundError as error:
         print("file non trovato")
@@ -21,7 +21,7 @@ def updateData(index, data):
     fileList = readData()
     fileList.insert(int(index), data)
     dataString = "\n".join(fileList)
-    createData(dataString)
+    createData(dataString,"w")
 
 def deleteData(index):
     return
