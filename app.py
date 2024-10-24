@@ -47,6 +47,6 @@ def update_subs():
 
 
 @app.route("/sub/<int:id>", methods=["DELETE"])
-def show_subs(id):
+def delete_subs(id):
     element = deleteData(id)
     return jsonify({"data": element})
